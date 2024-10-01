@@ -1,4 +1,18 @@
-# Getting Started with Create React App
+# SJDD Student Assignation
+
+## Description
+Web App created with React
+Objective: Assign open workplaces to the students, prioritizing grade and preferences
+
+## Instructions:
+Warning: The project uses very specific file formats! It is not designed for "general use"
+
+
+
+
+## More Information:
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
