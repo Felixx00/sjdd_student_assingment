@@ -1,7 +1,7 @@
-# SJDD Student Assignation
+# SJDD Student Assignments
 
 ## Description
-Web App created with React
+Web App created with React<br>
 Objective: Assign open workplaces to the students, prioritizing grade and preferences
 
 ## Instructions:
