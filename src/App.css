@@ -23,6 +23,24 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+.App-header-2 {
+  background-color: #282c34;
+  min-height: 100vh;
+  font-size: calc(24px);
+  color: white;
+  padding-left: 20px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+.back-butt {
+  font-size: '30px';
+}
+.back {
+  color: red;
+}
 
 .App-link {
   color: #61dafb;
