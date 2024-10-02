@@ -199,9 +199,15 @@ function App() {
               console.log(data);
               
                 return (
-                  <div key={data.apellido}>
-                    Nota: {data.nota} - {data.nombre} - Asignat a: {data.hospital} - Con indice: {data.asignacion}
+                  <div>
+                  <div key={data.apellido} >
+                    Nota: {data.nota} - {data.nombre} {data.apellido} -- Asignat a: {data.hospital} - Con indice: {data.asignacion}
+                    <br></br>
+        
                   </div>
+                  <br></br>
+                  </div>
+                  
                 );
               
             })}
