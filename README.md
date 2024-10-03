@@ -8,7 +8,7 @@ Objective: Assign open workplaces to the students, prioritizing grade and prefer
 Libraries used: MaterialUI & sweetalert
 
 ## Showcase:
-![](https://github.com/Felixx00/sjdd_student_assingment/tree/master/public/Animation_SJD.gif)
+![](Animation_SJD.gif)
 
 ## Instructions:
 Warning: The project uses very specific file formats for processing data! It is not designed for "public use"<br>
