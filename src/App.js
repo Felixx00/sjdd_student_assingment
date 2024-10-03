@@ -9,6 +9,35 @@ import Fab from "@mui/material/Fab";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell, { tableCellClasses } from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import Paper from "@mui/material/Paper";
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: "#222831",
+    //backgroundColor: '#76ABAE',
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
+
 var flag_selected = 0;
 var flag_pagina = 0;
 
@@ -62,36 +91,42 @@ function leer_fichero(event) {
         //Cada estudiant
         if (line !== "") {
           //console.log(columns);
-          alumnes.push({suspendidas: columns[0], nota: parseFloat(columns[1]), nombre: columns[2], apellido: columns[3], dni: columns[4], asignacion: 0, hospital: ''})
+          alumnes.push({
+            suspendidas: columns[0],
+            nota: parseFloat(columns[1]),
+            nombre: columns[2],
+            apellido: columns[3],
+            dni: columns[4],
+            asignacion: 0,
+            hospital: "",
+          });
           let prioridades = columns;
-          prioridades[0] = '';
-          prioridades[1] = '';
-          prioridades[2] = '';
-          prioridades[3] = '';
-          prioridades[4] = '';
-          prioridades.forEach((x,index) => {
+          prioridades[0] = "";
+          prioridades[1] = "";
+          prioridades[2] = "";
+          prioridades[3] = "";
+          prioridades[4] = "";
+          prioridades.forEach((x, index) => {
             prioridades[index] = x.replace(/(?:\\[rn]|[\r\n]+)+/g, "");
-            if(x !== ''){
+            if (x !== "") {
               prioridades[index] = parseInt(x);
             }
           });
-          console.log(prioridades)
+          console.log(prioridades);
 
-          for (let i = 1; i < hospitals.length-4; i++) {
+          for (let i = 1; i < hospitals.length - 4; i++) {
             let index = prioridades.indexOf(i);
-            if(hospitals[index].count_actual > 0){
-              console.log('Si');
+            if (hospitals[index].count_actual > 0) {
+              console.log("Si");
               hospitals[index].count_actual -= 1;
               alumnes[alumnes.length - 1].asignacion = i;
               alumnes[alumnes.length - 1].hospital = hospitals[index].name;
               break;
-            }else{
-              console.log('next')
+            } else {
+              console.log("next");
             }
-          } 
-          
+          }
         }
-        
       }
 
       it += 1;
@@ -112,7 +147,14 @@ function App() {
     return (
       <div className="App">
         <header className="App-header">
-          <p style={{ fontSize: "60px" }}>SJDD Student Assignment</p>
+          <p
+            style={{ fontSize: "60px", color: "#EEEEEE", fontWeight: "bolder" }}
+          >
+            SJD{" "}
+            <span style={{ fontSize: "60px", color: "#3399FF" }}>Student</span>{" "}
+            Assignment
+          </p>
+
           <Button
             component="label"
             role={undefined}
@@ -148,6 +190,7 @@ function App() {
               multiple
             />
           </Button>
+
           <p style={{ fontSize: "12px" }}>{selected}</p>
           <Box sx={{ "& > :not(style)": { m: 1 } }}>
             <Fab
@@ -172,47 +215,87 @@ function App() {
             </Fab>
           </Box>
         </header>
+        <div class="footer">
+          <p>Made with: ReactJS</p>
+          <p>Copyright © 2024 All rights Reserved</p>
+        </div>
       </div>
     );
   } else {
     return (
       <div>
-        <div className="App-header-2">
-          <div className="back">
-            <Button
-              className="back-butt"
-              variant="outlined"
-              startIcon={<ArrowBackIosIcon />}
-              onClick={() => {
-                flag_pagina = 0;
-                flag_selected = 0;
-                hospitals = [{}, {}, {}, {}, {}];
-                setSelected(" ");
+        <div className="App-header-3">
+          <div className="top-page">
+            <div className="back">
+              <Button
+                className="back-butt"
+                variant="contained"
+                startIcon={<ArrowBackIosIcon />}
+                onClick={() => {
+                  flag_pagina = 0;
+                  flag_selected = 0;
+                  hospitals = [{}, {}, {}, {}, {}];
+                  setSelected(" ");
+                }}
+              >
+                Return
+              </Button>
+            </div>
+            <p
+              style={{
+                fontSize: "40px",
+                color: "#EEEEEE",
+                fontWeight: "bolder",
               }}
             >
-              Back
-            </Button>
+              <span style={{ fontSize: "40px", color: "#3399FF" }}>
+                Results
+              </span>{" "}
+              of Assingment:
+            </p>
           </div>
 
-          <>
-            {alumnes.map(function (data) {
-              console.log(data);
-              
-                return (
-                  <div>
-                  <div key={data.apellido} >
-                    Nota: {data.nota} - {data.nombre} {data.apellido} -- Asignat a: {data.hospital} - Con indice: {data.asignacion}
-                    <br></br>
-        
-                  </div>
-                  <br></br>
-                  </div>
-                  
-                );
-              
-            })}
-          </>
-          
+          <TableContainer
+            component={Paper}
+            className="tabla"
+            sx={{ maxHeight: 800, borderRadius: "10px" }}
+          >
+            <Table
+              sx={{ minWidth: 650, borderRadius: "20px" }}
+              aria-label="simple table"
+              stickyHeader
+            >
+              <TableHead>
+                <TableRow>
+                  <StyledTableCell>Grade</StyledTableCell>
+                  <StyledTableCell align="center">Name</StyledTableCell>
+                  <StyledTableCell align="center">Surname</StyledTableCell>
+                  <StyledTableCell align="center">Hospital</StyledTableCell>
+                  <StyledTableCell align="center">
+                    Priority Option
+                  </StyledTableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {alumnes.map(function (data) {
+                  return (
+                    <StyledTableRow
+                      key={data.apellido}
+                      //sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                    >
+                      <TableCell component="th" scope="row">
+                        {data.nota}
+                      </TableCell>
+                      <TableCell align="center">{data.nombre}</TableCell>
+                      <TableCell align="center">{data.apellido}</TableCell>
+                      <TableCell align="center">{data.hospital}</TableCell>
+                      <TableCell align="center">{data.asignacion}</TableCell>
+                    </StyledTableRow>
+                  );
+                })}
+              </TableBody>
+            </Table>
+          </TableContainer>
         </div>
       </div>
     );
@@ -222,17 +305,21 @@ function App() {
 export default App;
 
 /*
-{hospitals.map(function (data) {
+<>
+            {alumnes.map(function (data) {
               console.log(data);
-              if (data.name !== "") {
-                return (
-                  <div key={data.name}>
-                    {data.name} - Plaçes: {data.count_inicial}
+
+              return (
+                <div>
+                  <div key={data.apellido}>
+                    Nota: {data.nota} - {data.nombre} {data.apellido} -- Asignat
+                    a: {data.hospital} - Con indice: {data.asignacion}
+                    <br></br>
                   </div>
-                );
-              } else {
-                return <div key={Math.random()}></div>;
-              }
+                  <br></br>
+                </div>
+              );
             })}
+          </>
 
 */
