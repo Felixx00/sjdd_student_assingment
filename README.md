@@ -17,7 +17,8 @@ The app reads a CSV file with a specific format provided by the end user, with a
 The web app was created to be used as a tool in the education and management field by the client<br>
 
 ## Disclaimer
-Warning: The project uses very specific file formats for processing data provided by the client! It is not designed for "public use"<br>
+Warning: The project uses very specific file formats for processing data provided by the client!
+It is not designed for "public use"<br>
 
 <br>
 <br>
